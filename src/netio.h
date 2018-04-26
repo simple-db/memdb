@@ -3,10 +3,11 @@
 /* Email: wtzhuque@163.com       */
 /*********************************/
 
-#ifndef CODU_SEGMENT_H
-#define CODU_SEGMENT_H
+#ifndef CODU_NETIO_H
+#define CODU_NETIO_H
 
 namespace codu {
 } // namespace codu
 
-#endif // CODU_SEGMENT_H
+
+#endif // CODU_NETIO_H
