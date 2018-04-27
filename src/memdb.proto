@@ -1,0 +1,41 @@
+package codu;
+
+option cc_generic_services = true;
+
+message Key {
+    required bytes key = 1;
+};
+
+message KeySet {
+    repeated Key keys = 1;
+};
+
+message Value {
+    optional bytes value = 1;
+};
+
+message ValueSet {
+    repeated Value values = 1;
+};
+
+message Record {
+    required bytes key = 1;
+    required bytes value = 2;
+};
+
+message RecordSet {
+    repeated Record records = 1;
+};
+
+message Status {
+    required int32 error = 1;
+    optional string msg = 2;
+    repeated Value values = 3;
+};
+
+service DBService {
+    rpc get(Key) returns (Status);
+    rpc set(Record) returns (Status);
+    rpc mget(KeySet) returns (Status);
+    rpc mset(RecordSet) returns (Status);
+};

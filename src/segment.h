@@ -7,6 +7,18 @@
 #define CODU_SEGMENT_H
 
 namespace codu {
+
+class Segment {
+public:
+    Segment();
+
+    ~Segment();
+
+    int init();
+
+    int destroy();
+}; // class Segment
+
 } // namespace codu
 
 #endif // CODU_SEGMENT_H
