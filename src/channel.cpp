@@ -7,7 +7,8 @@
 
 namespace codu {
 
-Channel::Channel() {
+Channel::Channel(PhotonDB* db)
+    : _db(db) {
 }
 
 Channel::~Channel() {

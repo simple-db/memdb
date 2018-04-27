@@ -19,6 +19,8 @@ class Channel;
 
 class PhotonDB {
 public:
+    friend class Channel;
+public:
     static PhotonDB& instance();
 
 public:

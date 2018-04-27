@@ -22,6 +22,17 @@ PhotonDB& PhotonDB::instance() {
 }
    
 int PhotonDB::init(const Options& options) {
+    // init segments
+    // TODO: load segments from existing data file
+    for (int i = 0; i < options.segment_num; ++i) {
+        _segments.emplace_back(std::make_shared<Segment>());
+    }
+
+    // init channels
+    for (int i = 0; i < options.channel_num; ++i) {
+        _channels.emplace_back(std::make_shared<Channel>());
+    }
+
     return 0;
 }
     
@@ -30,6 +41,7 @@ int PhotonDB::destroy() {
 }
 
 int PhotonDB::get(const Key* key, Value* value) {
+
     return 0;
 }
 
