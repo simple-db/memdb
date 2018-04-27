@@ -29,19 +29,19 @@ int PhotonDB::destroy() {
     return 0;
 }
 
-int PhotonDB::get() {
+int PhotonDB::get(const Key* key, Value* value) {
     return 0;
 }
 
-int PhotonDB::put() {
+int PhotonDB::put(const Record* record) {
     return 0;
 }
 
-int PhotonDB::mget() {
+int PhotonDB::mget(const KeySet* key_set, ValueSet* value) {
     return 0;
 }
 
-int PhotonDB::mput() {
+int PhotonDB::mput(const RecordSet* records) {
     return 0;
 }
 

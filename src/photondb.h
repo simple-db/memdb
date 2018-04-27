@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "options.h"
+#include "memdb.pb.h"
 
 namespace codu {
 
