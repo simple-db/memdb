@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <memory>
+#include <functional>
 
 #include "options.h"
 #include "memdb.pb.h"
@@ -32,13 +33,18 @@ public:
 
     int destroy();
 
-    int get(const Key* key, Value* value);
+    int get(const Key* key, Value* value, std::function<void()>* done);
 
-    int put(const Record* record);
+    int put(const Record* record, std::function<void()>* done);
 
-    int mget(const KeySet* key_set, ValueSet* value);
+    int mget(const KeySet* key_set, ValueSet* value, std::function<void()>* done);
 
-    int mput(const RecordSet* records);
+    int mput(const RecordSet* records, std::function<void()>* done);
+
+private:
+    void single_op_done();
+
+    void multip_op_done();
 
 private:
     std::vector<std::shared_ptr<Segment>> _segments;

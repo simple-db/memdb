@@ -15,7 +15,7 @@ DEFINE_int32(port, 8000, "service port");
 namespace codu {
 
 int run(int argc, char** argv) {
-    GFLAGS_NS::ParseCommandLineFlags(&argc, &argv, true);
+    google::ParseCommandLineFlags(&argc, &argv, true);
 
 
     PhotonDB& db = PhotonDB::instance();
