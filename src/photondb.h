@@ -33,18 +33,22 @@ public:
 
     int destroy();
 
-    int get(const Key* key, Value* value, std::function<void()>* done);
+    int get(const Key* key, Status* status, std::function<void()> done);
 
-    int put(const Record* record, std::function<void()>* done);
+    int set(const Record* record, Status* status, std::function<void()> done);
 
-    int mget(const KeySet* key_set, ValueSet* value, std::function<void()>* done);
+    int mget(const KeySet* key_set, Status* status, std::function<void()> done);
 
-    int mput(const RecordSet* records, std::function<void()>* done);
+    int mset(const RecordSet* records, Status* status, std::function<void()> done);
 
 private:
     void single_op_done();
 
     void multip_op_done();
+
+    size_t get_segment_id(const Key* key);
+
+    size_t get_channel_id(size_t seg_id);
 
 private:
     std::vector<std::shared_ptr<Segment>> _segments;

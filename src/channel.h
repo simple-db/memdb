@@ -18,9 +18,9 @@ public:
 
     ~Channel();
 
-    void get(const Key* key, Value* value, std::function<void()>* closure);
+    void get(const Key* key, Value* value, std::function<void()> closure);
 
-    void put(const Record* record, std::function<void()>* closure);
+    void put(const Record* record, std::function<void()> closure);
 
 private:
     PhotonDB* _db {nullptr};

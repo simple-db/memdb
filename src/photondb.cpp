@@ -44,25 +44,31 @@ int PhotonDB::destroy() {
 }
 
 int PhotonDB::get(const Key* key,
-                  Value* value,
-                  std::function<void()>* done) {
+                  Status* status,
+                  std::function<void()> done) {
+    size_t seg_id = get_segment_id(key);
+    size_t chan_id = get_channel_id(seg_id);
+
+    _channels[chan_id]->get(key, status, done);
 
     return 0;
 }
 
-int PhotonDB::put(const Record* record,
-                  std::function<void()>* done) {
+int PhotonDB::set(const Record* record,
+                  Status* status,
+                  std::function<void()> done) {
     return 0;
 }
 
 int PhotonDB::mget(const KeySet* key_set,
-                   ValueSet* value,
-                   std::function<void()>* done) {
+                   Status* status,
+                   std::function<void()> done) {
     return 0;
 }
 
-int PhotonDB::mput(const RecordSet* records,
-                   std::function<void()>* done) {
+int PhotonDB::mset(const RecordSet* records,
+                   Status* status,
+                   std::function<void()> done) {
     return 0;
 }
 
@@ -70,6 +76,14 @@ void PhotonDB::single_op_done() {
 }
 
 void PhotonDB::multip_op_done() {
+}
+
+size_t PhotonDB::get_segment_id(const Key* key) {
+    return 0;
+}
+
+size_t PhotonDB::get_channel_id(size_t seg_id) {
+    return 0;
 }
 
 } // namespace codu
