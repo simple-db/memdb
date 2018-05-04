@@ -5,6 +5,8 @@
 
 #include "channel.h"
 
+#include "segment.h"
+
 namespace codu {
 
 Channel::Channel(PhotonDB* db)
@@ -19,9 +21,9 @@ int Channel::get(const Key* key,
                  size_t seg_id,
                  Closure closure) {
     auto task_ptr = std::make_shared<Closure>(
-            std::bind(&Channel::do_get, this, key, status, closure)
+            std::bind(&Channel::do_get, this, key, status, seg_id, closure)
             );
-    execution_queue_execute(_exec_queue, task_ptr);
+    return execution_queue_execute(_exec_queue, task_ptr);
 }
 
 int Channel::put(const Record* record,
@@ -29,23 +31,31 @@ int Channel::put(const Record* record,
                  size_t seg_id,
                  Closure closure) {
     auto task_ptr = std::make_shared<Closure>(
-            std::bind(&Channel::do_put, this, record, status, closure)
+            std::bind(&Channel::do_put, this, record, status, seg_id, closure)
             );
-    execution_queue_execute(_exec_queue, task_ptr);
+    return execution_queue_execute(_exec_queue, task_ptr);
 }
 
 void Channel::do_get(const Key* key,
                      Status* status,
                      size_t seg_id,
                      Closure closure) {
-    std::shared_ptr<Segment> seg = _db->_segments[seg_id];
-
+    Value* value = status->add_values();
+    int ret = _db->_segments[seg_id]->get(key, value);
+    if (ret != 0) {
+        status->clear_values();
+    }
+    status->set_error(ret);
+    closure();
 }
 
 void Channel::do_put(const Record* record,
                      Status* status,
                      size_t seg_id,
                      Closure closure) {
+    int ret = _db->_segments[seg_id]->put(record);
+    status->set_error(ret);
+    closure();
 }
 
 } // namespace codu

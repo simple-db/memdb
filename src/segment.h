@@ -6,6 +6,7 @@
 #ifndef CODU_SEGMENT_H
 #define CODU_SEGMENT_H
 
+#include <sparsehash/sparse_hash_map>
 #include "memdb.pb.h"
 
 namespace codu {
@@ -28,7 +29,7 @@ public:
 
     int put(const Record* record);
 private:
-    // Hash Table
+    ::google::sparse_hash_map<std::string, std::string> _data;
 }; // class Segment
 
 } // namespace codu
