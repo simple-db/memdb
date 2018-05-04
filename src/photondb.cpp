@@ -49,9 +49,7 @@ int PhotonDB::get(const Key* key,
     size_t seg_id = get_segment_id(key);
     size_t chan_id = get_channel_id(seg_id);
 
-    _channels[chan_id]->get(key, status, done);
-
-    return 0;
+    return _channels[chan_id]->get(key, status, seg_id, done);
 }
 
 int PhotonDB::set(const Record* record,

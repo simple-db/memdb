@@ -17,6 +17,7 @@ namespace codu {
 
 class Segment;
 class Channel;
+typedef std::function<void()> Closure;
 
 class PhotonDB {
 public:
@@ -33,13 +34,13 @@ public:
 
     int destroy();
 
-    int get(const Key* key, Status* status, std::function<void()> done);
+    int get(const Key* key, Status* status, Closure done);
 
-    int set(const Record* record, Status* status, std::function<void()> done);
+    int set(const Record* record, Status* status, Closure done);
 
-    int mget(const KeySet* key_set, Status* status, std::function<void()> done);
+    int mget(const KeySet* key_set, Status* status, Closure done);
 
-    int mset(const RecordSet* records, Status* status, std::function<void()> done);
+    int mset(const RecordSet* records, Status* status, Closure done);
 
 private:
     void single_op_done();
